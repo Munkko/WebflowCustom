@@ -1,5 +1,3 @@
-alert('hello');
-
 let cmsItem = $('.cms-item');
 
 $(cmsItem).each(function () {
