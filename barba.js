@@ -64,48 +64,49 @@ barba.hooks.enter((data) => {
     const galBlock = $('.works-gallery_block');
     var toggleState = false;
 
-    let tl = gsap.timeline({});
+    let tl = gsap.timeline({
+      defaults: { duration: 0.8, ease: 'power2.inOut' },
+    });
 
     function spread() {
-      if (toggleState === false) {
-        tl.to(galBlock, {
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power2.inOut',
-        });
-        tl.to(galLeft, {
-          display: 'none',
-          duration: 0.8,
-          ease: 'power2.inOut',
-        });
-        tl.to(galBlock, {
-          opacity: 100,
-          duration: 0.8,
-          ease: 'power2.inOut',
-        });
+      if ($(window).width() > 991) {
+        if (toggleState === false) {
+          tl.to('.overflow-container', {
+            height: 0,
+          });
+          tl.to(galLeft, {
+            width: 0,
+          });
+          toggleState = true;
+          console.log('oi');
+        } else {
+          tl.to(galLeft, {
+            width: '30%',
+          });
+          tl.to('.overflow-container', {
+            height: 'auto',
+          });
 
-        toggleState = true;
-
-        console.log('oi');
+          toggleState = false;
+          console.log('ah');
+        }
       } else {
-        tl.to(galBlock, {
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power2.inOut',
-        });
-        tl.to(galLeft, {
-          display: 'block',
-          duration: 0.8,
-          ease: 'power2.inOut',
-        });
-        tl.to(galBlock, {
-          opacity: 100,
-          duration: 0.8,
-          ease: 'power2.inOut',
-        });
+        gsap.set(galLeft, { width: 'auto' });
+        if (toggleState === false) {
+          tl.to('.overflow-container', {
+            height: 0,
+          });
 
-        toggleState = false;
-        console.log('ah');
+          toggleState = true;
+          console.log('oi');
+        } else {
+          tl.to('.overflow-container', {
+            height: 'auto',
+          });
+
+          toggleState = false;
+          console.log('ah');
+        }
       }
     }
 
